@@ -1,6 +1,6 @@
 {
     "name": "magdicom/nova-visible-password",
-    "description": "A Laravel Nova field.",
+    "description": "Laravel Nova package to toggle visibility of password field.",
     "keywords": [
         "laravel",
         "nova"
@@ -8,6 +8,9 @@
     "license": "MIT",
     "require": {
         "php": "^8.0"
+    },
+    "require-dev": {
+        "laravel/nova": "^4"
     },
     "autoload": {
         "psr-4": {
