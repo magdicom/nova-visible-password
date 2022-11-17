@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'show' => 'Show content',
-    'hide' => 'Hide content',
+    'show' => 'Show Content',
+    'hide' => 'Hide Content',
 ];

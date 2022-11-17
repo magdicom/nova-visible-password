@@ -4,22 +4,27 @@ namespace Magdicom\NovaVisiblePassword;
 
 use Closure;
 use Laravel\Nova\Fields\Field;
+use Illuminate\Support\Facades\Hash;
+use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Fields\SupportsDependentFields;
 
 class VisiblePassword extends Field
 {
+    use SupportsDependentFields;
+
     /**
      * Display the field with value
      *
      * @var bool
      */
-    public $initWithValue = true;
+    public $initWithValue = false;
 
     /**
-     * Indicates if the value can be displayed in forms
+     * Hash the value on save
      *
      * @var bool
      */
-    public $visibleOnForms = true;
+    public $hashOnSave = true;
 
     /**
      * Indicates if the value can be displayed in resource index page
@@ -34,6 +39,13 @@ class VisiblePassword extends Field
      * @var bool
      */
     public $visibleOnDetail = false;
+
+    /**
+     * Indicates if the value can be displayed in forms
+     *
+     * @var bool
+     */
+    public $visibleOnForms = true;
 
     /**
      * The field's component.
@@ -73,24 +85,6 @@ class VisiblePassword extends Field
     }
 
     /**
-     * Make it possible to display the hidden data on forms
-     *
-     * @param  (callable():bool)|bool  $callback
-     * @return $this|mixed
-     */
-    public function visibleOnForms($callback = true)
-    {
-        if ($callback instanceof Closure && is_callable($callback)) {
-            $this->visibleOnForms = call_user_func($callback);
-        }
-        else {
-            $this->visibleOnForms = (bool) $callback;
-        }
-
-        return $this;
-    }
-
-    /**
      * Make it possible to display the hidden data on resource index
      *
      * @param  (callable():bool)|bool  $callback
@@ -109,7 +103,7 @@ class VisiblePassword extends Field
     }
 
     /**
-     * Make it possible to display the hidden data on resource index
+     * Make it possible to display the hidden data on resource detail
      *
      * @param  (callable():bool)|bool  $callback
      * @return $this|mixed
@@ -127,6 +121,67 @@ class VisiblePassword extends Field
     }
 
     /**
+     * Make it possible to display the hidden data on forms
+     *
+     * @param  (callable():bool)|bool  $callback
+     * @return $this|mixed
+     */
+    public function visibleOnForms($callback = true)
+    {
+        if ($callback instanceof Closure && is_callable($callback)) {
+            $this->visibleOnForms = call_user_func($callback);
+        }
+        else {
+            $this->visibleOnForms = (bool) $callback;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Whether to hash the provided value before storing it or keep it plain.
+     *
+     * @param  (callable():bool)|bool  $callback
+     * @return $this
+     */
+    public function hashOnSave($callback = true)
+    {
+        if ($callback instanceof Closure && is_callable($callback)) {
+            $this->hashOnSave = call_user_func($callback);
+        }
+        else {
+            $this->hashOnSave = (bool) $callback;
+        }
+
+        // as the retrieved value is hashed, there is no point of displaying it
+        // anyway you can bypass this behavior using `withValue(true)`
+        if ($this->hashOnSave) {
+            $this->initWithValue = false;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Hydrate the given attribute on the model based on the incoming request.
+     *
+     * @param NovaRequest $request
+     * @param  string  $requestAttribute
+     * @param  object  $model
+     * @param  string  $attribute
+     * @return mixed
+     */
+    protected function fillAttributeFromRequest(NovaRequest $request, $requestAttribute, $model, $attribute)
+    {
+        if (! empty($request[$requestAttribute]) && $this->hashOnSave === true) {
+            $model->{$attribute} = Hash::make($request[$requestAttribute]);
+        }
+        else {
+            parent::fillAttributeFromRequest($request, $requestAttribute, $model, $attribute);
+        }
+    }
+
+    /**
      * Prepare the field for JSON serialization.
      *
      * @return array<string, mixed>
@@ -135,6 +190,8 @@ class VisiblePassword extends Field
     {
         return array_merge(parent::jsonSerialize(), [
             'value' => $this->initWithValue ? $this->value : '',
+            'valueIndex' => $this->visibleOnIndex ? $this->value : '',
+            'valueDetail' => $this->visibleOnDetail ? $this->value : '',
             'visibleOnIndex' => $this->visibleOnIndex,
             'visibleOnDetail' => $this->visibleOnDetail,
             'visibleOnForms' => $this->visibleOnForms,

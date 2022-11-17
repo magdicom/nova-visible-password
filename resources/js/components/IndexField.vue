@@ -1,7 +1,9 @@
 <template>
-    <template v-if="this.field.visibleOnIndex">
-        <div @click.prevent.stop class="tw-flex tw-flex-row">
-            <div class="tw-leading-6">{{ fieldValue }}</div>
+    <template v-if="this.field.displayedAs">{{ this.field.displayedAs }}</template>
+    <template v-else-if="this.field.visibleOnIndex">
+        <div @click.prevent.stop class="tw-flex tw-flex-row" :class="`text-${field.textAlign}`">
+            <div v-if="this.visible">{{ fieldValue }}</div>
+            <div v-else v-html="'&middot; &middot; &middot; &middot; &middot; &middot; &middot; &middot;'"></div>
             <div @click.prevent.stop="toggleVisibility" class="tw-w-max tw-ml-1 rtl:tw-ml-0 rtl:tw-mr-1">
                 <div v-if="!this.visible" v-tooltip="this.field.showMessage">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="tw-w-5 tw-h-5 tw-text-slate-400 hover:tw-text-slate-500">
@@ -18,7 +20,7 @@
             </div>
         </div>
     </template>
-    <p v-else>****</p>
+    <p v-else v-html="'&middot; &middot; &middot; &middot; &middot; &middot; &middot; &middot;'"></p>
 </template>
 
 <script>
@@ -27,11 +29,11 @@ export default {
 
     computed: {
         fieldValue() {
-            if (!this.visible) {
-                return '****'
+            if (!this.visible || !this.field.visibleOnIndex) {
+                return ''
             }
 
-            return this.field.displayedAs || this.field.value
+            return this.field.valueIndex
         },
     },
 
