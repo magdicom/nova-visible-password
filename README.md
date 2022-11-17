@@ -16,16 +16,16 @@ A Laravel Nova password field with a visibility toggle, its behaviour typical as
 + Disable data encryption/hash.
 ----
 
-1. [Requirements](#requirements)
-2. [Installation](#installation)
-3. [Usage](#usage)
-    1. [Basic usage](#basic-usage)
-    2. [Disable data encryption (Hash)](#hash-on-save)
-    3. [Populate with data](#populate-with-date)
-    4. [Disable toggle button on forms](#visible-on-forms)
-    5. [Visible on resource index](#visible-on-index)
-    6. [Visible on resource detail](#visible-on-detail)
-4. [License](#license)
+1. [Requirements](https://github.com/magdicom/nova-visible-password#requirements)
+2. [Installation](https://github.com/magdicom/nova-visible-password#installation)
+3. [Usage](https://github.com/magdicom/nova-visible-password#usage)
+    1. [Basic usage](https://github.com/magdicom/nova-visible-password#basic-usage)
+    2. [Disable data encryption (Hash)](https://github.com/magdicom/nova-visible-password#disable-data-encryption)
+    3. [Populate with data](https://github.com/magdicom/nova-visible-password#populate-field-with-data)
+    4. [Disable toggle button on forms](https://github.com/magdicom/nova-visible-password#disable-toggle-button-on-forms)
+    5. [Visible on resource index](https://github.com/magdicom/nova-visible-password#enable-toggle-button-on-index)
+    6. [Visible on resource detail](https://github.com/magdicom/nova-visible-password#enable-toggle-button-on-detail)
+4. [License](https://github.com/magdicom/nova-visible-password#license)
 
 <a name="requirements"></a>
 ## Requirements
