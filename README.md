@@ -22,7 +22,7 @@ A Laravel Nova password field with a visibility toggle, its behaviour typical as
     1. [Basic usage](#basic-usage)
     2. [Disable data encryption (Hash)](#hash-on-save)
     3. [Populate with data](#populate-with-date)
-    4. [Visible on forms](#visible-on-forms)
+    4. [Disable toggle button on forms](#visible-on-forms)
     5. [Visible on resource index](#visible-on-index)
     6. [Visible on resource detail](#visible-on-detail)
 4. [License](#license)
