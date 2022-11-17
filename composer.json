@@ -3,9 +3,21 @@
     "description": "Laravel Nova package to toggle visibility of password field.",
     "keywords": [
         "laravel",
-        "nova"
+        "nova",
+        "password",
+        "field",
+        "toggle",
+        "nova-package"
     ],
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Mohamed Magdi",
+            "email": "m@momagdi.com",
+            "homepage": "https://momagdi.com",
+            "role": "Developer"
+        }
+    ],
     "require": {
         "php": "^8.0",
         "laravel/nova": "^4"
