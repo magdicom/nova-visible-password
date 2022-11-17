@@ -7,9 +7,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.0"
-    },
-    "require-dev": {
+        "php": "^8.0",
         "laravel/nova": "^4"
     },
     "autoload": {
