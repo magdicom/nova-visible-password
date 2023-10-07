@@ -3,6 +3,7 @@
 ---
 
 [![Latest Version on Github](https://img.shields.io/packagist/v/magdicom/nova-visible-password.svg?style=flat)](https://packagist.org/packages/magdicom/nova-visible-password)
+[![Total Downloads]([https://img.shields.io/packagist/dt/sentq/laravel-sentq.svg](https://img.shields.io/packagist/v/magdicom/nova-visible-password.svg)?style=flat-square)]([https://packagist.org/packages/sentq/laravel-sentq](https://packagist.org/packages/magdicom/nova-visible-password))
 
 ![In Action!](./assets/img/animated_in_action.gif)
 
